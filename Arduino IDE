@@ -1,0 +1,44 @@
+const int touchPins[] = {A5, A4, A3, A2, A1}; // Array of touch sensor pins
+const int threshold = 450; // Threshold value for detecting touch
+const int numPins = sizeof(touchPins) / sizeof(touchPins[0]); // Number of touch pins
+
+void setup() {
+  Serial.begin(9600); // Initialize serial communication
+  for (int i = 0; i < numPins; i++) {
+    pinMode(touchPins[i], INPUT); // Set each touchPin as input
+  }
+}
+
+void loop() {
+  // Array to hold touch states
+  int touchStates[numPins];
+  
+  // Read the touch value for each pin and determine if touched
+  for (int i = 0; i < numPins; i++) {
+    int touchValue = analogRead(touchPins[i]); // Read analog value from touchpad
+    
+    // Debugging: Print raw touch values
+    Serial.print("Touch Value (Pin ");
+    Serial.print(touchPins[i]);
+    Serial.print("): ");
+    Serial.println(touchValue);
+    
+    // Check if touchValue is above the threshold
+    if (touchValue > threshold) {
+      touchStates[i] = 1; // Set to 1 if touched
+    } else {
+      touchStates[i] = 0; // Set to 0 if not touched
+    }
+  }
+
+  // Send the touch states as comma-separated values
+  for (int i = 0; i < numPins; i++) {
+    Serial.print(touchStates[i]);
+    if (i < numPins - 1) {
+      Serial.print(","); // Separate values with commas
+    }
+  }
+  Serial.println(); // Newline to end the data line
+
+  delay(100); // Delay to avoid flooding serial data
+}
