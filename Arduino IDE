@@ -38,7 +38,7 @@ void loop() {
       Serial.print(","); // Separate values with commas
     }
   }
-  Serial.println(); // Newline to end the data line
+  Serial.println(); 
 
   delay(100); // Delay to avoid flooding serial data
 }
