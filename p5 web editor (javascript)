@@ -20,7 +20,7 @@ function setup() {
   serial.list(); // List all available serial ports
   serial.on('list', gotList); // Handle list of ports
   serial.on('data', gotData); // Handle incoming data
-  serial.open('/dev/tty.usbmodem101'); // Replace with your serial port name
+  serial.open('/dev/tty.usbmodem101'); 
 }
 
 function gotList(portList) {
